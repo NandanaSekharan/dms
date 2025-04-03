@@ -31,17 +31,23 @@ export default function VolunteerSignUp() {
   };
 
   const handleSignUp = async () => {
+    console.log('Starting sign up process...');
     if (!teamName || !signUpPassword || !confirmPassword || !phoneNumber) {
+      console.log('Missing required fields:', { teamName, phoneNumber, hasPassword: !!signUpPassword });
       return Alert.alert('Error', 'Please fill all fields.');
     }
     if (signUpPassword !== confirmPassword) {
+      console.log('Password mismatch');
       return Alert.alert('Error', 'Passwords do not match.');
     }
     if (!Object.values(passwordValidation).every(Boolean)) {
+      console.log('Password validation failed:', passwordValidation);
       return Alert.alert('Error', 'Password does not meet requirements.');
     }
 
     setIsSignUpLoading(true);
+    console.log('Attempting to register with:', { teamName, phoneNumber });
+    
     try {
       const response = await fetch(`${API_BASE_URL}/volunteer/register`, {
         method: 'POST',
@@ -53,13 +59,17 @@ export default function VolunteerSignUp() {
         }),
       });
       const data = await response.json();
+      console.log('Server response:', { status: response.status, data });
+      
       if (response.ok) {
+        console.log('Registration successful');
         setShowSuccessModal(true);
         setTeamName('');
         setSignUpPassword('');
         setConfirmPassword('');
         setPhoneNumber('');
       } else {
+        console.log('Registration failed:', data.message);
         if (data.message.includes("Team name already exists")) {
           Alert.alert('Error', 'This team name is already taken. Please choose another.');
         } else if (data.message.includes("Phone number already registered")) {
@@ -69,6 +79,7 @@ export default function VolunteerSignUp() {
         }
       }
     } catch (error) {
+      console.error('Network error during registration:', error);
       Alert.alert('Error', 'Network error. Please try again later.');
     } finally {
       setIsSignUpLoading(false);

@@ -21,7 +21,7 @@ export default function Login() {
     if (username === 'admin' && password === '0000') {
       await AsyncStorage.setItem('loggedInUser', username);
       Alert.alert('Success', 'Login successful!');
-      return router.push('/(dashboard)/dashboard');
+      return router.push('/(udashboard)/udashboard')
     }
 
     try {
@@ -48,7 +48,7 @@ export default function Login() {
       await AsyncStorage.setItem('userData', JSON.stringify(data.user));
 
       Alert.alert('Success', 'Login successful!');
-      router.push('/(dashboard)/dashboard');
+      router.push('/(udashboard)/dashboard');
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Invalid username or password.';
       Alert.alert('Error', errorMessage);

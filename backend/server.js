@@ -37,6 +37,17 @@ const authRoute = require("./routes/authRoute");
 app.use("/api/auth", authRoute);
 const volunteerRoutes = require("./routes/volunteerRoutes");
 app.use("/api/volunteer", volunteerRoutes)
+const contactRoutes = require('./routes/contactRoutes');
+app.use('/api/contacts', contactRoutes);
+const campRoutes = require("./routes/campRoutes");
+app.use("/api/camps", campRoutes);
+const complaintRoutes = require("./routes/complaintRoutes");
+app.use("/api/complaints", complaintRoutes);
+const reportRoutes = require('./routes/reportRoutes');
+app.use('/uploads', express.static('uploads')); // Serve uploaded images
+app.use('/api/reports', reportRoutes);
+
+
 
 // Server listening
 const PORT = process.env.PORT || 5000;

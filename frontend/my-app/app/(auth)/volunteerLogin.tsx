@@ -48,7 +48,7 @@ export default function Login() {
       await AsyncStorage.setItem('userData', JSON.stringify(data.volunteer));
 
       Alert.alert('Success', 'Login successful!');
-      router.push('/(dashboard)/dashboard');
+      router.push('/(vdashboard)/dashboard');
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Invalid team name or password.';
       Alert.alert('Error', errorMessage);
